@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyB8HIn2engik2M8ITpLsdEB_2s7xYkZOJg',
+    authDomain: 'gard-game.firebaseapp.com',
+    databaseURL: 'https://gard-game.firebaseio.com',
+    projectId: 'gard-game',
+    storageBucket: 'gard-game.appspot.com',
+    messagingSenderId: '698870212211',
+    appId: '1:698870212211:web:dd602871521386a6236c06'
+  }
 };
 
 /*
