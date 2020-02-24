@@ -1,0 +1,25 @@
+.preloader {
+  background: #ffd360;
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+.room {
+  width: 100vw;
+  height: 100vh;
+  background: url(../assets/bg.jpg) no-repeat;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .table {
+    width: 50vw;
+    height: 50vh;
+  }
+}
