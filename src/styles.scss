@@ -1,2 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'scss/reset.scss'
+@import "scss/reset.scss";
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+@import "~@angular/material/theming";
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$custom-typography: mat-typography-config(
+  $font-family: "Pacifico, cursive",
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+
+@include angular-material-typography($custom-typography);
+
+body {
+  font-family: "Marck Script", cursive;
+  font-family: "Pacifico", cursive;
+  width: 100vw;
+  height: 100vh;
+  background: url(./assets/bg.jpg) no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo {
+  width: 80px;
+}

@@ -1,1 +1,34 @@
-<p>login works!</p>
+<div class="wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="mat-elevation-z24">
+    <div class="logo-wrap" fxLayout="row" fxLayoutAlign="center center">
+      <img class="logo" src="./assets/logo.svg" alt="" />
+    </div>
+    <form fxLayout="column" novalidate [formGroup]="signInForm" (ngSubmit)="signIn()">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error *ngIf="signInForm.get('email').hasError('email') && !signInForm.get('email').hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="signInForm.get('email').hasError('required')">
+          Email is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" />
+        <mat-error
+          *ngIf="signInForm.get('password').hasError('minlength') && !signInForm.get('password').hasError('required')"
+        >
+          Please enter min 4 characters
+        </mat-error>
+        <mat-error *ngIf="signInForm.get('password').hasError('required')">
+          Password is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button type="submit">Sign In</button>
+    </form>
+  </mat-card>
+</div>
