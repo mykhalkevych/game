@@ -1,34 +1,84 @@
 <div class="wrapper" fxLayout="row" fxLayoutAlign="center center">
-  <mat-card class="mat-elevation-z24">
+  <mat-card class="mat-elevation-z24" *ngIf="signInForm && signUpForm">
     <div class="logo-wrap" fxLayout="row" fxLayoutAlign="center center">
       <img class="logo" src="./assets/logo.svg" alt="" />
     </div>
-    <form fxLayout="column" novalidate [formGroup]="signInForm" (ngSubmit)="signIn()">
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" />
-        <mat-error *ngIf="signInForm.get('email').hasError('email') && !signInForm.get('email').hasError('required')">
-          Please enter a valid email address
-        </mat-error>
-        <mat-error *ngIf="signInForm.get('email').hasError('required')">
-          Email is
-          <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput formControlName="password" />
-        <mat-error
-          *ngIf="signInForm.get('password').hasError('minlength') && !signInForm.get('password').hasError('required')"
-        >
-          Please enter min 4 characters
-        </mat-error>
-        <mat-error *ngIf="signInForm.get('password').hasError('required')">
-          Password is
-          <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <button mat-raised-button type="submit">Sign In</button>
-    </form>
+
+    <mat-tab-group>
+      <mat-tab label="Sign In">
+        <form fxLayout="column" novalidate [formGroup]="signInForm" (ngSubmit)="signIn()">
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+            <mat-error
+              *ngIf="signInForm.get('email').hasError('email') && !signInForm.get('email').hasError('required')"
+            >
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="signInForm.get('email').hasError('required')">
+              Email is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" />
+            <mat-error
+              *ngIf="
+                signInForm.get('password').hasError('minlength') && !signInForm.get('password').hasError('required')
+              "
+            >
+              Password should be at least 6 characters
+            </mat-error>
+            <mat-error *ngIf="signInForm.get('password').hasError('required')">
+              Password is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button type="submit" color="primary">Sign In</button>
+        </form>
+      </mat-tab>
+      <mat-tab label="Sign Up">
+        <form fxLayout="column" novalidate [formGroup]="signUpForm" (ngSubmit)="signUp()">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+            <mat-error *ngIf="signUpForm.get('name').hasError('required')">
+              Email is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+            <mat-error
+              *ngIf="signUpForm.get('email').hasError('email') && !signUpForm.get('email').hasError('required')"
+            >
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="signUpForm.get('email').hasError('required')">
+              Email is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" />
+            <mat-error
+              *ngIf="
+                signInForm.get('password').hasError('minlength') && !signInForm.get('password').hasError('required')
+              "
+            >
+              Password should be at least 6 characters
+            </mat-error>
+            <mat-error *ngIf="signInForm.get('password').hasError('required')">
+              Password is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">Sign Up</button>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
   </mat-card>
 </div>
