@@ -1,8 +1,35 @@
-<div class="sidebar" fxLayout="column" fxLayoutAlign="center start">
+<div class="sidebar" fxLayout="column" fxLayoutAlign="start center ">
   <div class="logo-wrap" fxLayout="row" fxLayoutAlign="center center">
     <img class="logo" src="./assets/logo.svg" alt="" />
   </div>
-  <div class="nav">
+  <ul class="nav">
+    <li>
+      <button mat-icon-button>
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </li>
+    <li>
+      <button mat-icon-button>
+        <mat-icon>portrait</mat-icon>
+      </button>
+    </li>
+    <li>
+      <button mat-icon-button>
+        <mat-icon>group_add</mat-icon>
+      </button>
+    </li>
+    <li>
+      <button mat-icon-button>
+        <mat-icon>insert_chart_outlined</mat-icon>
+      </button>
+    </li>
+    <li>
+      <button mat-icon-button>
+        <mat-icon>settings</mat-icon>
+      </button>
+    </li>
+  </ul>
+  <div class="logout-btn">
     <button mat-icon-button (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
     </button>

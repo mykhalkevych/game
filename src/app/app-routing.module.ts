@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { GamesComponent } from './components/games/games.component';
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
-const redirectLoggedInToGames = () => redirectLoggedInTo(['games']);
+import { AuthGuard } from './guard/auth.guard';
 const routes: Routes = [
   {
     path: '',
@@ -15,14 +12,12 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectLoggedInToGames }
+    resolve: [AuthGuard]
   },
   {
     path: 'games',
     component: GamesComponent,
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin }
+    canActivate: [AuthGuard]
   }
 ];
 

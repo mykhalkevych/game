@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Login } from 'src/app/store/auth/auth.actions';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,7 +11,7 @@ import { Login } from 'src/app/store/auth/auth.actions';
 export class LoginComponent implements OnInit {
   signInForm: FormGroup;
   signUpForm: FormGroup;
-  constructor(private fb: FormBuilder, private store: Store) {
+  constructor(private fb: FormBuilder, private store: Store, private router: Router) {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -27,7 +28,9 @@ export class LoginComponent implements OnInit {
 
   signIn() {
     if (this.signInForm.valid) {
-      this.store.dispatch(new Login(this.signInForm.value));
+      this.store.dispatch(new Login(this.signInForm.value)).subscribe(() => {
+        this.router.navigate(['/games']);
+      });
     }
   }
 
@@ -38,7 +41,9 @@ export class LoginComponent implements OnInit {
           email: this.signInForm.value['email'],
           password: this.signInForm.value['password']
         };
-        this.store.dispatch(new Login(data));
+        this.store.dispatch(new Login(data)).subscribe(() => {
+          this.router.navigate(['/games']);
+        });
       });
     }
   }
