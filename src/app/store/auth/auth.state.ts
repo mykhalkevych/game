@@ -1,4 +1,4 @@
-import { AuthStateModel, Login, Logout } from './auth.actions';
+import { AuthStateModel, Login, Logout, SingUp } from './auth.actions';
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { AuthService } from 'src/app/services/auth.service';
 import { tap } from 'rxjs/operators';
@@ -19,6 +19,11 @@ export class AuthState {
 
   constructor(private authService: AuthService) {}
 
+  @Action(SingUp)
+  singup(ctx: StateContext<AuthStateModel>, action: SingUp) {
+    return this.authService.singUp(action.payload);
+  }
+
   @Action(Login)
   login(ctx: StateContext<AuthStateModel>, action: Login) {
     return this.authService.signIn(action.payload).pipe(
@@ -36,6 +41,7 @@ export class AuthState {
     const state = ctx.getState();
     return this.authService.logout().pipe(
       tap(() => {
+        localStorage.removeItem('user');
         ctx.setState({
           authenticated: false
         });

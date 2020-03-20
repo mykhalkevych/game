@@ -2,4 +2,8 @@
   <img src="../assets/cards-loader.gif" alt="" />
 </div>
 
+<div class="loading" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+
 <router-outlet></router-outlet>

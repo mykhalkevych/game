@@ -1,0 +1,42 @@
+import { Card } from '../models/card';
+import { CardSuits } from '../enums/CardSuits';
+import { CardValues } from '../enums/CardValues';
+
+export const CARDSDECK: Card[] = [
+  { suit: CardSuits.Spades, value: CardValues.Six },
+  { suit: CardSuits.Clubs, value: CardValues.Six },
+  { suit: CardSuits.Hearts, value: CardValues.Six },
+  { suit: CardSuits.Diams, value: CardValues.Six },
+  { suit: CardSuits.Spades, value: CardValues.Seven },
+  { suit: CardSuits.Clubs, value: CardValues.Seven },
+  { suit: CardSuits.Hearts, value: CardValues.Seven },
+  { suit: CardSuits.Diams, value: CardValues.Seven },
+  { suit: CardSuits.Spades, value: CardValues.Eight },
+  { suit: CardSuits.Clubs, value: CardValues.Eight },
+  { suit: CardSuits.Hearts, value: CardValues.Eight },
+  { suit: CardSuits.Diams, value: CardValues.Eight },
+  { suit: CardSuits.Spades, value: CardValues.Nine },
+  { suit: CardSuits.Clubs, value: CardValues.Nine },
+  { suit: CardSuits.Hearts, value: CardValues.Nine },
+  { suit: CardSuits.Diams, value: CardValues.Nine },
+  { suit: CardSuits.Spades, value: CardValues.Ten },
+  { suit: CardSuits.Clubs, value: CardValues.Ten },
+  { suit: CardSuits.Hearts, value: CardValues.Ten },
+  { suit: CardSuits.Diams, value: CardValues.Ten },
+  { suit: CardSuits.Spades, value: CardValues.Jack },
+  { suit: CardSuits.Clubs, value: CardValues.Jack },
+  { suit: CardSuits.Hearts, value: CardValues.Jack },
+  { suit: CardSuits.Diams, value: CardValues.Jack },
+  { suit: CardSuits.Spades, value: CardValues.Queen },
+  { suit: CardSuits.Clubs, value: CardValues.Queen },
+  { suit: CardSuits.Hearts, value: CardValues.Queen },
+  { suit: CardSuits.Diams, value: CardValues.Queen },
+  { suit: CardSuits.Spades, value: CardValues.King },
+  { suit: CardSuits.Clubs, value: CardValues.King },
+  { suit: CardSuits.Hearts, value: CardValues.King },
+  { suit: CardSuits.Diams, value: CardValues.King },
+  { suit: CardSuits.Spades, value: CardValues.Ace },
+  { suit: CardSuits.Clubs, value: CardValues.Ace },
+  { suit: CardSuits.Hearts, value: CardValues.Ace },
+  { suit: CardSuits.Diams, value: CardValues.Ace }
+];

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Logout } from 'src/app/store/auth/auth.actions';
 import { Router } from '@angular/router';
+import { Loading } from 'src/app/store/app/app.actions';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,7 +15,9 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {}
 
   logout() {
+    this.store.dispatch(new Loading(true));
     this.store.dispatch(new Logout()).subscribe(() => {
+      this.store.dispatch(new Loading(false));
       this.router.navigate(['/login']);
     });
   }
