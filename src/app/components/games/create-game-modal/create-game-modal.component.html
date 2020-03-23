@@ -1,0 +1,24 @@
+<h2 class="mat-dialog-title">Create Game</h2>
+
+<form class="popup-form" [formGroup]="newGameForm" novalidate (ngSubmit)="createGame()">
+  <mat-form-field class="w-100">
+    <input matInput placeholder="Name" formControlName="name" />
+    <mat-error *ngIf="newGameForm.get('name').hasError('required')">
+      Name is
+      <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="w-100">
+    <mat-label>Max players</mat-label>
+    <mat-select formControlName="maxPlayers">
+      <mat-option *ngFor="let count of [3, 4, 5, 6, 7, 8]" [value]="count">
+        {{ count }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+    <button mat-raised-button type="reset" (click)="closeDialog()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">Create</button>
+  </div>
+</form>

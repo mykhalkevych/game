@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GamesComponent } from './components/games/games.component';
@@ -24,25 +25,37 @@ import { AuthState } from './store/auth/auth.state';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { PlayersState } from './store/players/players.state';
+import { CreateGameModalComponent } from './components/games/create-game-modal/create-game-modal.component';
+import { MatSelectModule } from '@angular/material/select';
+import { GameState } from './store/games/games.state';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, GamesComponent, GameRoomComponent, SidebarComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    GamesComponent,
+    GameRoomComponent,
+    SidebarComponent,
+    CreateGameModalComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebase),
-    NgxsModule.forRoot([AppState, AuthState, PlayersState], { developmentMode: !environment.production }),
+    NgxsModule.forRoot([AppState, AuthState, PlayersState, GameState], { developmentMode: !environment.production }),
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production
     }),
+    MatSelectModule,
     MatIconModule,
     MatTabsModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDialogModule,
     MatProgressSpinnerModule,
     MatButtonModule,
     MatCardModule
