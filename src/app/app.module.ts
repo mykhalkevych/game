@@ -22,6 +22,8 @@ import { GameRoomComponent } from './components/game-room/game-room.component';
 import { AppState } from './store/app/app.state';
 import { AuthState } from './store/auth/auth.state';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { PlayersState } from './store/players/players.state';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, GamesComponent, GameRoomComponent, SidebarComponent],
@@ -31,7 +33,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebase),
-    NgxsModule.forRoot([AppState, AuthState], { developmentMode: !environment.production }),
+    NgxsModule.forRoot([AppState, AuthState, PlayersState], { developmentMode: !environment.production }),
+    NgxsReduxDevtoolsPluginModule.forRoot({
+      disabled: environment.production
+    }),
     MatIconModule,
     MatTabsModule,
     FlexLayoutModule,

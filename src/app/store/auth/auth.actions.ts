@@ -1,5 +1,6 @@
 export interface AuthStateModel {
   authenticated: boolean;
+  userId: string;
 }
 
 export class SingUp {

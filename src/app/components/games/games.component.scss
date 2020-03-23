@@ -1,0 +1,13 @@
+.games-wrap {
+  position: relative;
+  padding: 30px;
+  padding-left: 130px;
+  height: 100%;
+
+  .create-game-btn {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    z-index: 2;
+  }
+}
