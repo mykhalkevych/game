@@ -1,6 +1,19 @@
 <app-sidebar></app-sidebar>
 
 <div class="games-wrap">
+  <div class="games">
+    <mat-card *ngFor="let game of games">
+      <mat-card-title>
+        {{ game.name }}
+      </mat-card-title>
+      <mat-card-content>
+        <div class="actions">
+          <span>PLayers: {{ game.playersCount }} / {{ game.maxPlayers }}</span>
+          <button mat-raised-button color="accent" routerLink="{{ game.id }}">Join to play</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
   <div class="create-game-btn">
     <button (click)="openNewGameModal()" mat-fab color="primary">
       <mat-icon>add</mat-icon>

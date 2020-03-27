@@ -1,0 +1,26 @@
+<div class="chat-wrap">
+  <div class="message-list">
+    <div class="message-item" *ngFor="let item of messages">
+      <div class="player">
+        <div class="avatar">
+          <img [src]="item.player.photo" alt="player photo" />
+        </div>
+        <span>{{ item.player.name }}</span>
+      </div>
+      <div class="message-text">
+        {{ item.text }}
+      </div>
+    </div>
+  </div>
+  <div class="message-form">
+    <textarea
+      name="message"
+      [(ngModel)]="messageText"
+      placeholder="Enter a message"
+      (keypress)="handleKeyPress($event)"
+    ></textarea>
+    <button mat-icon-button (click)="sendMessage()">
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</div>

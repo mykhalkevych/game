@@ -8,7 +8,7 @@ export interface GamesStateModel {
 
 export class CreateGame {
   static readonly type = '[Games] Create';
-  constructor(public payload: { name: string; maxPLayers: number; playersCount: number; status: GameStatus }) {}
+  constructor(public payload: { name: string; maxPlayers: number; playersCount: number; status: GameStatus }) {}
 }
 
 export class UpdateGame {

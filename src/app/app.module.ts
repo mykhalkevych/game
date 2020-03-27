@@ -17,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { GamesComponent } from './components/games/games.component';
 import { GameRoomComponent } from './components/game-room/game-room.component';
 import { AppState } from './store/app/app.state';
@@ -28,6 +28,8 @@ import { PlayersState } from './store/players/players.state';
 import { CreateGameModalComponent } from './components/games/create-game-modal/create-game-modal.component';
 import { MatSelectModule } from '@angular/material/select';
 import { GameState } from './store/games/games.state';
+import { ChatComponent } from './components/game-room/chat/chat.component';
+import { MessagesState } from './store/messages/messages.state';
 
 @NgModule({
   declarations: [
@@ -36,15 +38,19 @@ import { GameState } from './store/games/games.state';
     GamesComponent,
     GameRoomComponent,
     SidebarComponent,
-    CreateGameModalComponent
+    CreateGameModalComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebase),
-    NgxsModule.forRoot([AppState, AuthState, PlayersState, GameState], { developmentMode: !environment.production }),
+    NgxsModule.forRoot([AppState, AuthState, PlayersState, GameState, MessagesState], {
+      developmentMode: !environment.production
+    }),
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production
     }),

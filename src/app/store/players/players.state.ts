@@ -5,6 +5,13 @@ import { PlayersStateModel, CreatePlayer, GetPlayer } from './players.actions';
 import { Player } from 'src/app/models/player';
 import { PlayersService } from 'src/app/services/players.service';
 
+const defaultUserId = () => {
+  if (localStorage.getItem('user')) {
+    return JSON.parse(localStorage.getItem('user')).uid;
+  }
+  return null;
+};
+
 @Injectable()
 @State<PlayersStateModel>({
   name: 'players',

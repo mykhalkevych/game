@@ -4,13 +4,14 @@ import { Injectable } from '@angular/core';
 import { AppStateModel, Loading } from './app.actions';
 import { PlayersState } from '../players/players.state';
 import { GameState } from '../games/games.state';
+import { MessagesState } from '../messages/messages.state';
 
 @State<AppStateModel>({
   name: 'app',
   defaults: {
     isLoading: false
   },
-  children: [AuthState, PlayersState, GameState]
+  children: [AuthState, PlayersState, GameState, MessagesState]
 })
 @Injectable()
 export class AppState {

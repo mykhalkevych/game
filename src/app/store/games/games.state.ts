@@ -1,7 +1,7 @@
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { GamesStateModel, CreateGame } from './games.actions';
+import { GamesStateModel, CreateGame, GetGames } from './games.actions';
 import { Game } from 'src/app/models/game';
 import { GamesService } from 'src/app/services/games.service';
 
@@ -19,29 +19,26 @@ export class GameState {
     return state.currentGame;
   }
 
+  @Selector()
+  static Games(state: GamesStateModel): Game[] {
+    return state.games;
+  }
+
   constructor(private gamesService: GamesService) {}
 
   @Action(CreateGame)
   createGame(ctx: StateContext<GamesStateModel>, action: CreateGame) {
-    const games = ctx.getState().games;
-    return this.gamesService.createGame(action.payload).pipe(
-      tap(() => {
+    return this.gamesService.createGame(action.payload);
+  }
+  @Action(GetGames)
+  getGames(ctx: StateContext<GamesStateModel>) {
+    return this.gamesService.getGames().pipe(
+      tap(res => {
+        console.log(res);
         ctx.patchState({
-          currentGame: action.payload,
-          games: [action.payload, ...games]
+          games: [...res]
         });
       })
     );
   }
-  // @Action(GetPlayer)
-  // getPlayer(ctx: StateContext<PlayersStateModel>, action: GetPlayer) {
-  //   return this.gamesService.g(action.payload.id).pipe(
-  //     tap(res => {
-  //       console.log(res.data());
-  //       ctx.patchState({
-  //         currentPlayer: null
-  //       });
-  //     })
-  //   );
-  // }
 }
