@@ -27,8 +27,8 @@
   flex: 1;
 
   .table {
-    width: 50vw;
-    height: 60vh;
+    width: 40vw;
+    height: 45vh;
     background: #f2f1ff;
     border: 20px solid #ccc;
     border-radius: 30vh;
@@ -36,7 +36,7 @@
 }
 
 .player-panel {
-  flex: 1;
+  height: 35vh;
   background: #f7f6fc;
   box-shadow: 0px -1px 15px #a4a4a4;
 }
