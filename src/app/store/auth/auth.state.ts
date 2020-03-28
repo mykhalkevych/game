@@ -78,6 +78,7 @@ export class AuthState {
 
   @Action(Logout)
   logout(ctx: StateContext<AuthStateModel>) {
+    this.store.dispatch(new Loading(true));
     return this.authService.logout().pipe(
       tap(() => {
         localStorage.removeItem('user');
@@ -85,6 +86,9 @@ export class AuthState {
           authenticated: false,
           user: null
         });
+      }),
+      finalize(() => {
+        this.store.dispatch(new Loading(false));
       })
     );
   }

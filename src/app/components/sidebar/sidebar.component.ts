@@ -15,9 +15,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {}
 
   logout() {
-    this.store.dispatch(new Loading(true));
     this.store.dispatch(new Logout()).subscribe(() => {
-      this.store.dispatch(new Loading(false));
       this.router.navigate(['/login']);
     });
   }
