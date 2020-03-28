@@ -31,19 +31,18 @@ export class LoginComponent implements OnInit {
 
   signIn() {
     if (this.signInForm.valid) {
-      this.store.dispatch(new Loading(true));
       this.store.dispatch(new Login(this.signInForm.value)).subscribe(({ app }) => {
-        this.store.dispatch(new GetPlayer(app.auth.user.uid)).subscribe(() => {
-          this.store.dispatch(new Loading(false));
-          this.router.navigate(['/games']);
-        });
+        if (app.auth.user) {
+          this.store.dispatch(new GetPlayer(app.auth.user.uid)).subscribe(() => {
+            this.router.navigate(['/games']);
+          });
+        }
       });
     }
   }
 
   signUp() {
     if (this.signUpForm.valid) {
-      this.store.dispatch(new Loading(true));
       this.store.dispatch(new SingUp(this.signUpForm.value)).subscribe(({ app }) => {
         combineLatest([
           this.store.dispatch(
@@ -59,7 +58,6 @@ export class LoginComponent implements OnInit {
           )
         ]).subscribe(() => {
           this.router.navigate(['/games']);
-          this.store.dispatch(new Loading(false));
         });
       });
     }
