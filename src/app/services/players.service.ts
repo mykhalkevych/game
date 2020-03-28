@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import 'firebase/firestore';
 import { Player } from '../models/player';
-import { from } from 'rxjs';
+import { from, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,6 @@ export class PlayersService {
   }
 
   getPlayer(id: string) {
-    return this.afs.doc<Player>(`${this.colectionName}/${id}`).get();
+    return this.afs.doc<Player>(`${this.colectionName}/${id}`).valueChanges();
   }
 }

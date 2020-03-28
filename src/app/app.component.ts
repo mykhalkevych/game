@@ -3,6 +3,7 @@ import { Store } from '@ngxs/store';
 import { AppState } from './store/app/app.state';
 import { AuthService } from './services/auth.service';
 import { Logout } from './store/auth/auth.actions';
+import { GetPlayer } from './store/players/players.actions';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +15,13 @@ export class AppComponent implements AfterViewInit {
   isLoading = false;
   constructor(private store: Store, private authService: AuthService) {
     this.store.select(AppState.isLoading).subscribe(loading => {
-      console.log(loading);
       this.isLoading = loading;
     });
     this.authService.isLoggedIn$.subscribe(res => {
       console.log(res);
-      if (!res && localStorage.getItem('user')) {
-        console.log(';afds');
+      if (res) {
+        this.store.dispatch(new GetPlayer(res.uid));
+      } else if (!res && localStorage.getItem('user')) {
         this.store.dispatch(new Logout());
       }
     });

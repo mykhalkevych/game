@@ -31,11 +31,11 @@ export class MessagesState {
   }
   @Action(GetMessages)
   getGames(ctx: StateContext<MessagesStateModel>, action: GetMessages) {
-    return this.messagesService.getMessages(action.payload.chatId).pipe(
-      tap(res => {
+    return this.messagesService.getMessages(action.payload).pipe(
+      tap((res: any) => {
         console.log(res);
         ctx.setState({
-          messages: [...res]
+          messages: [...res.messages]
         });
       })
     );

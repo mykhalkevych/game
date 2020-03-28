@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { PlayersState } from 'src/app/store/players/players.state';
 
 @Component({
   selector: 'app-game-room',
@@ -8,9 +10,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class GameRoomComponent implements OnInit {
   public gameId = '';
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private store: Store) {
     this.gameId = this.route.snapshot.params['gameId'];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.select(PlayersState.currentPlayer);
+  }
 }

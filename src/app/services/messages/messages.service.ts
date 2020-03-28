@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+
 import 'firebase/firestore';
+import * as firebase from 'firebase/app';
 import { from } from 'rxjs';
 import { Message } from 'src/app/models/message';
 @Injectable({
@@ -14,21 +16,29 @@ export class MessagesService {
   }
 
   createChatRoom(id: string) {
-    console.log(id);
+    this.messagesColection
+      .doc(id)
+      .get()
+      .subscribe(res => {
+        console.log(res);
+        if (!res.exists) {
+          this.messagesColection.doc(id).set({
+            messages: []
+          });
+        }
+      });
+  }
+
+  sendMessages({ chatId, message }) {
+    const messagesRef = this.messagesColection.doc(chatId);
     return from(
-      this.messagesColection.doc(id).set({
-        messages: []
+      messagesRef.update({
+        messages: firebase.firestore.FieldValue.arrayUnion(message)
       })
     );
   }
 
-  sendMessages({ chatId, message }) {
-    console.log(chatId);
-    console.log(message);
-    return from(this.messagesColection.doc(chatId).set(message));
-  }
-
   getMessages(chatId: string) {
-    return this.messagesColection.doc<Message[]>(chatId).valueChanges();
+    return this.messagesColection.doc(chatId).valueChanges();
   }
 }

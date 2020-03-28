@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { SendMessage, CreateChatRoom } from 'src/app/store/messages/messages.actions';
+import { SendMessage, CreateChatRoom, GetMessages } from 'src/app/store/messages/messages.actions';
 import { MessagesState } from 'src/app/store/messages/messages.state';
 import { Message } from 'src/app/models/message';
 import { Player } from 'src/app/models/player';
@@ -21,13 +21,17 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.chatId) {
-      this.store.dispatch(new CreateChatRoom(this.chatId));
+      this.store.dispatch(new CreateChatRoom(this.chatId)).subscribe(() => {
+        this.store.dispatch(new GetMessages(this.chatId));
+      });
     }
     this.store.select(MessagesState.Messages).subscribe(res => {
+      console.log(res);
       this.messages = res;
     });
-    this.currentPlayer = this.store.selectSnapshot<Player>((state: PlayersStateModel) => state.currentPlayer);
-    console.log(this.currentPlayer);
+    this.store.select(PlayersState.currentPlayer).subscribe(res => {
+      this.currentPlayer = res;
+    });
   }
 
   handleKeyPress(e) {

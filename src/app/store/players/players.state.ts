@@ -40,12 +40,10 @@ export class PlayersState {
   }
   @Action(GetPlayer)
   getPlayer(ctx: StateContext<PlayersStateModel>, action: GetPlayer) {
-    return this.playersService.getPlayer(action.payload.id).pipe(
+    return this.playersService.getPlayer(action.payload).pipe(
       tap(res => {
-        console.log(res);
         ctx.patchState({
-          // TODO
-          currentPlayer: null
+          currentPlayer: res
         });
       })
     );

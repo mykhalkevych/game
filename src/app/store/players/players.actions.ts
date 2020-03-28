@@ -21,7 +21,7 @@ export class DeletePlayer {
 
 export class GetPlayer {
   static readonly type = '[Players] Get Player';
-  constructor(public payload: { id: string }) {}
+  constructor(public payload: string) {}
 }
 
 export class GetPlayers {
