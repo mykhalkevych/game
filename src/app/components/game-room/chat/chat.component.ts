@@ -47,6 +47,7 @@ export class ChatComponent implements OnInit {
           chatId: this.chatId,
           message: {
             player: this.currentPlayer,
+            sentTime: new Date().toISOString(),
             text: this.messageText
           }
         })

@@ -33,10 +33,11 @@ export class MessagesState {
   getGames(ctx: StateContext<MessagesStateModel>, action: GetMessages) {
     return this.messagesService.getMessages(action.payload).pipe(
       tap((res: any) => {
-        console.log(res);
-        ctx.setState({
-          messages: [...res.messages]
-        });
+        if (res) {
+          ctx.setState({
+            messages: [...res.messages]
+          });
+        }
       })
     );
   }
