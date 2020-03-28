@@ -1,6 +1,8 @@
+import { FirebaseUser } from 'src/app/models/authUser';
+
 export interface AuthStateModel {
   authenticated: boolean;
-  userId: string;
+  user: FirebaseUser;
 }
 
 export class SingUp {

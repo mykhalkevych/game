@@ -4,9 +4,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
-const defaultUserId = () => {
+const defaultUser = () => {
   if (localStorage.getItem('user')) {
-    return JSON.parse(localStorage.getItem('user')).uid;
+    return JSON.parse(localStorage.getItem('user'));
   }
   return null;
 };
@@ -16,7 +16,7 @@ const defaultUserId = () => {
   name: 'auth',
   defaults: {
     authenticated: !!localStorage.getItem('user'),
-    userId: defaultUserId()
+    user: defaultUser()
   }
 })
 export class AuthState {
@@ -32,7 +32,7 @@ export class AuthState {
     return this.authService.singUp(action.payload).pipe(
       tap((result: any) => {
         ctx.patchState({
-          userId: result.user.uid
+          user: result.user
         });
       })
     );
@@ -45,7 +45,7 @@ export class AuthState {
         localStorage.setItem('user', JSON.stringify(result.user));
         ctx.setState({
           authenticated: true,
-          userId: result.user.uid
+          user: result.user
         });
       })
     );
@@ -58,7 +58,7 @@ export class AuthState {
         localStorage.removeItem('user');
         ctx.setState({
           authenticated: false,
-          userId: null
+          user: null
         });
       })
     );

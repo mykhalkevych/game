@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     if (this.signInForm.valid) {
       this.store.dispatch(new Loading(true));
       this.store.dispatch(new Login(this.signInForm.value)).subscribe(({ app }) => {
-        this.store.dispatch(new GetPlayer(app.auth.userId)).subscribe(res => {
+        this.store.dispatch(new GetPlayer(app.auth.user.uid)).subscribe(res => {
           this.store.dispatch(new Loading(false));
           this.router.navigate(['/games']);
         });
@@ -51,9 +51,10 @@ export class LoginComponent implements OnInit {
           ),
           this.store.dispatch(
             new CreatePlayer({
-              id: app.auth.userId,
+              id: app.auth.user.uid,
               name: this.signUpForm.value['name'],
-              email: this.signUpForm.value['email']
+              email: this.signUpForm.value['email'],
+              photo: app.auth.user.photoURL
             })
           )
         ]).subscribe(() => {

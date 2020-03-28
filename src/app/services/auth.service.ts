@@ -6,8 +6,12 @@ import { from } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  isLoggedIn = this.auth.authState;
-  constructor(private auth: AngularFireAuth) {}
+  isLoggedIn$ = this.auth.authState;
+  constructor(private auth: AngularFireAuth) {
+    this.isLoggedIn$.subscribe(res => {
+      console.log(res);
+    });
+  }
 
   singUp({ email, password }) {
     return from(this.auth.createUserWithEmailAndPassword(email, password));

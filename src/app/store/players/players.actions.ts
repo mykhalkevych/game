@@ -7,12 +7,12 @@ export interface PlayersStateModel {
 
 export class CreatePlayer {
   static readonly type = '[Players] Create';
-  constructor(public payload: { id: string; name: string; email: string }) {}
+  constructor(public payload: Player) {}
 }
 
 export class UpdatePlayer {
   static readonly type = '[Players] Update';
-  constructor(public payload: { email: string; password: string }) {}
+  constructor(public payload: Player) {}
 }
 
 export class DeletePlayer {
