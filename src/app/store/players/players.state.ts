@@ -42,7 +42,9 @@ export class PlayersState {
   getPlayer(ctx: StateContext<PlayersStateModel>, action: GetPlayer) {
     return this.playersService.getPlayer(action.payload.id).pipe(
       tap(res => {
+        console.log(res);
         ctx.patchState({
+          // TODO
           currentPlayer: null
         });
       })

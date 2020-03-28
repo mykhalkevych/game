@@ -1,7 +1,6 @@
-export interface FirebaseUser {
+export interface User {
   uid: string;
   photoURL: string;
   displayName: string;
   email: string;
-  [key: string]: any;
 }

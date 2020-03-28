@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     if (this.signInForm.valid) {
       this.store.dispatch(new Loading(true));
       this.store.dispatch(new Login(this.signInForm.value)).subscribe(({ app }) => {
-        this.store.dispatch(new GetPlayer(app.auth.user.uid)).subscribe(res => {
+        this.store.dispatch(new GetPlayer(app.auth.user.uid)).subscribe(() => {
           this.store.dispatch(new Loading(false));
           this.router.navigate(['/games']);
         });

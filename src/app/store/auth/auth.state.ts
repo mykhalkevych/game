@@ -1,8 +1,9 @@
 import { AuthStateModel, Login, Logout, SingUp } from './auth.actions';
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { AuthService } from 'src/app/services/auth.service';
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { User } from 'src/app/models/authUser';
 
 const defaultUser = () => {
   if (localStorage.getItem('user')) {
@@ -30,9 +31,10 @@ export class AuthState {
   @Action(SingUp)
   singup(ctx: StateContext<AuthStateModel>, action: SingUp) {
     return this.authService.singUp(action.payload).pipe(
-      tap((result: any) => {
+      tap(result => {
+        const { uid, email, displayName, photoURL } = result.user;
         ctx.patchState({
-          user: result.user
+          user: { uid, email, displayName, photoURL }
         });
       })
     );
@@ -41,12 +43,17 @@ export class AuthState {
   @Action(Login)
   login(ctx: StateContext<AuthStateModel>, action: Login) {
     return this.authService.signIn(action.payload).pipe(
-      tap((result: any) => {
+      tap(result => {
         localStorage.setItem('user', JSON.stringify(result.user));
+        const { uid, email, displayName, photoURL } = result.user;
         ctx.setState({
           authenticated: true,
-          user: result.user
+          user: { uid, email, displayName, photoURL }
         });
+      }),
+      catchError(err => {
+        console.log(err);
+        return err;
       })
     );
   }
