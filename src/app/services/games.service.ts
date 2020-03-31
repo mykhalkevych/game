@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import 'firebase/firestore';
+import * as firebase from 'firebase/app';
 import { from } from 'rxjs';
 import { Game } from '../models/game';
 
@@ -18,6 +19,19 @@ export class GamesService {
     const id = this.afs.createId();
     game.id = id;
     return from(this.gamesColection.doc(id).set(game));
+  }
+
+  joinToGame({ gameId, player }) {
+    const gameRef = this.gamesColection.doc(gameId);
+    return from(
+      gameRef.update({
+        players: firebase.firestore.FieldValue.arrayUnion(player)
+      })
+    );
+  }
+
+  getGame(id: string) {
+    return this.afs.doc<Game>(`${this.colectionName}/${id}`).valueChanges();
   }
 
   getGames() {

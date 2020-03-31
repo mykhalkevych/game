@@ -1,7 +1,7 @@
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { PlayersStateModel, CreatePlayer, GetPlayer } from './players.actions';
+import { PlayersStateModel, CreatePlayer, GetPlayer, UploadAvatar } from './players.actions';
 import { Player } from 'src/app/models/player';
 import { PlayersService } from 'src/app/services/players.service';
 
@@ -44,6 +44,23 @@ export class PlayersState {
       tap(res => {
         ctx.patchState({
           currentPlayer: res
+        });
+      })
+    );
+  }
+
+  @Action(UploadAvatar)
+  uploadAvatar(ctx: StateContext<PlayersStateModel>, action: UploadAvatar) {
+    return this.playersService.uploadAvatar(action.payload).pipe(
+      tap(res => {
+        console.log(res);
+        res.subscribe(fileUrl => {
+          this.playersService.updatePlayer({
+            playerId: action.payload.playerId,
+            player: {
+              photo: fileUrl
+            }
+          });
         });
       })
     );

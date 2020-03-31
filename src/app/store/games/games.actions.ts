@@ -1,5 +1,6 @@
 import { GameStatus } from 'src/app/enums/GameStatus';
 import { Game } from 'src/app/models/game';
+import { Player } from 'src/app/models/player';
 
 export interface GamesStateModel {
   currentGame: Game;
@@ -8,12 +9,17 @@ export interface GamesStateModel {
 
 export class CreateGame {
   static readonly type = '[Games] Create';
-  constructor(public payload: { name: string; maxPlayers: number; playersCount: number; status: GameStatus }) {}
+  constructor(public payload: Game) {}
+}
+
+export class JoinToGame {
+  static readonly type = '[Games] Join';
+  constructor(public payload: { gameId: string; player: Player }) {}
 }
 
 export class UpdateGame {
   static readonly type = '[Games] Update';
-  constructor(public payload: { name: string; maxPLayers: number; playersCount: number; status: GameStatus }) {}
+  constructor(public payload: Game) {}
 }
 
 export class DeleteGame {
@@ -22,7 +28,7 @@ export class DeleteGame {
 
 export class GetGame {
   static readonly type = '[Games] Get Game';
-  constructor(public payload: { id: string }) {}
+  constructor(public payload: string) {}
 }
 
 export class GetGames {

@@ -1,6 +1,6 @@
 <div class="chat-wrap">
   <div class="message-list">
-    <div class="message-item" *ngFor="let item of messages" [ngClass]="{ own: currentPlayer.id === item.player.id }">
+    <div class="message-item" *ngFor="let item of messages" [ngClass]="{ own: currentPlayer?.id === item.player.id }">
       <div class="player">
         <div class="avatar">
           <img [src]="item.player.photo || './assets/images/avatar.jpg'" alt="player photo" />
@@ -10,6 +10,9 @@
         <span>{{ item.player.name }}:</span>
         {{ item.text }}
       </div>
+      <span class="time">
+        {{ item.sentTime | date: 'hh:mm:ss' }}
+      </span>
     </div>
   </div>
   <div class="message-form">

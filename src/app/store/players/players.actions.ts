@@ -27,3 +27,8 @@ export class GetPlayer {
 export class GetPlayers {
   static readonly type = '[Players] Get Players';
 }
+
+export class UploadAvatar {
+  static readonly type = '[Players] Upload avatar';
+  constructor(public payload: { file: File; playerId: string }) {}
+}

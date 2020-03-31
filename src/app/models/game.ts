@@ -1,4 +1,5 @@
 import { GameStatus } from '../enums/GameStatus';
+import { Player } from './player';
 
 export interface Game {
   id?: string;
@@ -6,4 +7,5 @@ export interface Game {
   maxPlayers: number;
   playersCount: number;
   status: GameStatus;
+  players: Player[];
 }
