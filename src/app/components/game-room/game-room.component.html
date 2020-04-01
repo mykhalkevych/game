@@ -9,7 +9,9 @@
       <mat-grid-list cols="2" rowHeight="22vh">
         <mat-grid-tile *ngFor="let player of players">
           <div class="player">
-            <div class="avatar"></div>
+            <div class="avatar">
+              <img [src]="player.photo || './assets/images/avatar.jpg'" alt="player photo" />
+            </div>
             <div class="cards">
               <div class="card"></div>
             </div>

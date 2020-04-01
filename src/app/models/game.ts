@@ -7,5 +7,4 @@ export interface Game {
   maxPlayers: number;
   playersCount: number;
   status: GameStatus;
-  players: Player[];
 }

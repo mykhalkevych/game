@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import * as firebase from 'firebase/app';
 import { from } from 'rxjs';
 import { Game } from '../models/game';
+import { Player } from '../models/player';
 
 @Injectable({
   providedIn: 'root'
@@ -19,15 +20,6 @@ export class GamesService {
     const id = this.afs.createId();
     game.id = id;
     return from(this.gamesColection.doc(id).set(game));
-  }
-
-  joinToGame({ gameId, player }) {
-    const gameRef = this.gamesColection.doc(gameId);
-    return from(
-      gameRef.update({
-        players: firebase.firestore.FieldValue.arrayUnion(player)
-      })
-    );
   }
 
   getGame(id: string) {

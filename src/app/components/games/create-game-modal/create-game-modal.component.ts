@@ -35,8 +35,7 @@ export class CreateGameModalComponent implements OnInit {
       const game: Game = {
         ...this.newGameForm.value,
         playersCount: 0,
-        status: GameStatus.Draft,
-        players: []
+        status: GameStatus.Draft
       };
       this.store.dispatch(new CreateGame(game)).subscribe(() => {
         this.closeDialog();

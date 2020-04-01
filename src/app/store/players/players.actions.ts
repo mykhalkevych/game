@@ -3,6 +3,7 @@ import { Player } from 'src/app/models/player';
 export interface PlayersStateModel {
   currentPlayer: Player;
   players: Player[];
+  gamePlayers: Player[];
 }
 
 export class CreatePlayer {
@@ -24,6 +25,11 @@ export class GetPlayer {
   constructor(public payload: string) {}
 }
 
+export class GetGamePlayers {
+  static readonly type = '[Players] Get Game Player';
+  constructor(public payload: string) {}
+}
+
 export class GetPlayers {
   static readonly type = '[Players] Get Players';
 }
@@ -31,4 +37,9 @@ export class GetPlayers {
 export class UploadAvatar {
   static readonly type = '[Players] Upload avatar';
   constructor(public payload: { file: File; playerId: string }) {}
+}
+
+export class JoinToGame {
+  static readonly type = '[Players] Join to game';
+  constructor(public payload: { gameId: string; playerId: string }) {}
 }

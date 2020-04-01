@@ -4,8 +4,8 @@ import { Store } from '@ngxs/store';
 import { PlayersState } from 'src/app/store/players/players.state';
 import { GameState } from 'src/app/store/games/games.state';
 import { Game } from 'src/app/models/game';
-import { UploadAvatar } from 'src/app/store/players/players.actions';
-import { GetGame, JoinToGame } from 'src/app/store/games/games.actions';
+import { UploadAvatar, GetGamePlayers, JoinToGame } from 'src/app/store/players/players.actions';
+import { GetGame } from 'src/app/store/games/games.actions';
 import { Player } from 'src/app/models/player';
 import { combineLatest } from 'rxjs';
 
@@ -17,12 +17,13 @@ import { combineLatest } from 'rxjs';
 export class GameRoomComponent implements OnInit {
   gameId = '';
   game: Game;
-  players = [1, 2, 3, 4];
+  players: Player[] = [];
   currentPlayer: Player;
 
   constructor(private route: ActivatedRoute, private store: Store) {
     this.gameId = this.route.snapshot.params['gameId'];
     this.store.dispatch(new GetGame(this.gameId));
+    this.store.dispatch(new GetGamePlayers(this.gameId));
   }
 
   ngOnInit(): void {
@@ -30,6 +31,11 @@ export class GameRoomComponent implements OnInit {
       console.log(res);
       this.currentPlayer = res;
     });
+    this.store.select(PlayersState.gamePlayers).subscribe(res => {
+      console.log(res);
+      this.players = res;
+    });
+
     combineLatest([this.store.select(PlayersState.currentPlayer), this.store.select(GameState.currentGame)]).subscribe(
       res => {
         console.log(res);
@@ -37,10 +43,10 @@ export class GameRoomComponent implements OnInit {
         this.game = res[1];
         if (this.currentPlayer && this.game) {
           if (
-            this.game.players.length < this.game.maxPlayers &&
-            !this.isPLayerAlreadyJoined(this.game.players, this.currentPlayer.id)
+            this.players.length < this.game.maxPlayers &&
+            !this.isPLayerAlreadyJoined(this.players, this.currentPlayer.id)
           ) {
-            this.store.dispatch(new JoinToGame({ gameId: this.gameId, player: this.currentPlayer }));
+            this.store.dispatch(new JoinToGame({ gameId: this.gameId, playerId: this.currentPlayer.id }));
           }
         }
       }

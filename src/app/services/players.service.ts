@@ -45,4 +45,21 @@ export class PlayersService {
     const playerRef = this.playersColection.doc(playerId);
     return from(playerRef.update(player).then(() => playerRef.valueChanges()));
   }
+
+  joinToGame({ gameId, playerId }) {
+    const playerRef = this.playersColection.doc(playerId);
+    return from(
+      playerRef.update({
+        gameId
+      })
+    );
+  }
+
+  getGamePlayers(gameId: string) {
+    return this.afs
+      .collection<Player>(this.colectionName, ref => {
+        return ref.where('gameId', '==', gameId);
+      })
+      .valueChanges();
+  }
 }

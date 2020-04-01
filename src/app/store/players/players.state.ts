@@ -1,7 +1,14 @@
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { PlayersStateModel, CreatePlayer, GetPlayer, UploadAvatar } from './players.actions';
+import {
+  PlayersStateModel,
+  CreatePlayer,
+  GetPlayer,
+  UploadAvatar,
+  GetGamePlayers,
+  JoinToGame
+} from './players.actions';
 import { Player } from 'src/app/models/player';
 import { PlayersService } from 'src/app/services/players.service';
 
@@ -17,13 +24,24 @@ const defaultUserId = () => {
   name: 'players',
   defaults: {
     currentPlayer: null,
-    players: []
+    players: [],
+    gamePlayers: []
   }
 })
 export class PlayersState {
   @Selector()
   static currentPlayer(state: PlayersStateModel): Player {
     return state.currentPlayer;
+  }
+
+  @Selector()
+  static players(state: PlayersStateModel): Player[] {
+    return state.players;
+  }
+
+  @Selector()
+  static gamePlayers(state: PlayersStateModel): Player[] {
+    return state.gamePlayers;
   }
 
   constructor(private playersService: PlayersService) {}
@@ -45,6 +63,26 @@ export class PlayersState {
         ctx.patchState({
           currentPlayer: res
         });
+      })
+    );
+  }
+
+  @Action(GetGamePlayers)
+  getGamePlayers(ctx: StateContext<PlayersStateModel>, action: GetGamePlayers) {
+    return this.playersService.getGamePlayers(action.payload).pipe(
+      tap(res => {
+        ctx.patchState({
+          gamePlayers: res
+        });
+      })
+    );
+  }
+
+  @Action(JoinToGame)
+  joinToGame(ctx: StateContext<PlayersStateModel>, action: JoinToGame) {
+    return this.playersService.joinToGame(action.payload).pipe(
+      tap(res => {
+        console.log(res);
       })
     );
   }

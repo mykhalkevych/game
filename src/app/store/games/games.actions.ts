@@ -12,11 +12,6 @@ export class CreateGame {
   constructor(public payload: Game) {}
 }
 
-export class JoinToGame {
-  static readonly type = '[Games] Join';
-  constructor(public payload: { gameId: string; player: Player }) {}
-}
-
 export class UpdateGame {
   static readonly type = '[Games] Update';
   constructor(public payload: Game) {}
