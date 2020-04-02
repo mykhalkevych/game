@@ -23,7 +23,10 @@ const routes: Routes = [
   {
     path: 'games/:gameId',
     component: GameRoomComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      showBackButton: true
+    }
   }
 ];
 

@@ -22,6 +22,13 @@ export class GamesService {
     return from(this.gamesColection.doc(id).set(game));
   }
 
+  updateGame(game: Game) {
+    console.log(game);
+    const gameRef = this.gamesColection.doc(game.id);
+    console.log(gameRef);
+    return from(gameRef.update(game));
+  }
+
   getGame(id: string) {
     return this.afs.doc<Game>(`${this.colectionName}/${id}`).valueChanges();
   }

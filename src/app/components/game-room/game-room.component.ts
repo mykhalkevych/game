@@ -5,9 +5,10 @@ import { PlayersState } from 'src/app/store/players/players.state';
 import { GameState } from 'src/app/store/games/games.state';
 import { Game } from 'src/app/models/game';
 import { UploadAvatar, GetGamePlayers, JoinToGame } from 'src/app/store/players/players.actions';
-import { GetGame } from 'src/app/store/games/games.actions';
+import { GetGame, UpdateGame } from 'src/app/store/games/games.actions';
 import { Player } from 'src/app/models/player';
 import { combineLatest } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game-room',
@@ -36,8 +37,14 @@ export class GameRoomComponent implements OnInit {
       this.players = res;
     });
 
-    combineLatest([this.store.select(PlayersState.currentPlayer), this.store.select(GameState.currentGame)]).subscribe(
-      res => {
+    combineLatest([this.store.select(PlayersState.currentPlayer), this.store.select(GameState.currentGame)])
+      .pipe(
+        filter(x => {
+          console.log(x);
+          return !!x[0] && !!x[1];
+        })
+      )
+      .subscribe(res => {
         console.log(res);
         this.currentPlayer = res[0];
         this.game = res[1];
@@ -47,10 +54,10 @@ export class GameRoomComponent implements OnInit {
             !this.isPLayerAlreadyJoined(this.players, this.currentPlayer.id)
           ) {
             this.store.dispatch(new JoinToGame({ gameId: this.gameId, playerId: this.currentPlayer.id }));
+            this.store.dispatch(new UpdateGame({ ...this.game, playersCount: this.game.playersCount + 1 }));
           }
         }
-      }
-    );
+      });
   }
 
   isPLayerAlreadyJoined(players: Player[], playerId: string) {

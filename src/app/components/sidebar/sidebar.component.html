@@ -3,8 +3,8 @@
     <img class="logo" src="./assets/images/logo.svg" alt="" />
   </div>
   <ul class="nav">
-    <li>
-      <button mat-icon-button>
+    <li *ngIf="showBackButton">
+      <button mat-icon-button routerLink="/games">
         <mat-icon>arrow_back</mat-icon>
       </button>
     </li>
