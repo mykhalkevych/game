@@ -53,7 +53,8 @@ export class LoginComponent implements OnInit {
               id: app.auth.user.uid,
               name: this.signUpForm.value['name'],
               email: this.signUpForm.value['email'],
-              photo: app.auth.user.photoURL
+              photo: app.auth.user.photoURL,
+              gameId: null
             })
           )
         ]).subscribe(() => {

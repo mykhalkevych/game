@@ -25,8 +25,12 @@ export class GamesService {
   updateGame(game: Game) {
     console.log(game);
     const gameRef = this.gamesColection.doc(game.id);
-    console.log(gameRef);
     return from(gameRef.update(game));
+  }
+
+  deleteGame(gameId: string) {
+    const gameRef = this.gamesColection.doc(gameId);
+    return from(gameRef.delete());
   }
 
   getGame(id: string) {

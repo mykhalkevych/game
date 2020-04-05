@@ -1,9 +1,9 @@
 <h2 class="mat-dialog-title">Create Game</h2>
 
-<form class="popup-form" [formGroup]="newGameForm" novalidate (ngSubmit)="createGame()">
+<form class="popup-form" [formGroup]="gameForm" novalidate (ngSubmit)="saveGame()">
   <mat-form-field class="w-100">
     <input matInput placeholder="Name" formControlName="name" />
-    <mat-error *ngIf="newGameForm.get('name').hasError('required')">
+    <mat-error *ngIf="gameForm.get('name').hasError('required')">
       Name is
       <strong>required</strong>
     </mat-error>
@@ -19,6 +19,6 @@
 
   <div mat-dialog-actions>
     <button mat-raised-button type="reset" (click)="closeDialog()">Cancel</button>
-    <button mat-raised-button color="primary" type="submit">Create</button>
+    <button mat-raised-button color="primary" type="submit">{{ isEdit ? 'Update' : 'Create' }}</button>
   </div>
 </form>

@@ -6,4 +6,5 @@ export interface Player {
   email: string;
   photo?: string;
   cards?: Card[];
+  gameId: string;
 }

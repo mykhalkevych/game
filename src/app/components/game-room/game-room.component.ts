@@ -29,23 +29,19 @@ export class GameRoomComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select(PlayersState.currentPlayer).subscribe(res => {
-      console.log(res);
       this.currentPlayer = res;
     });
     this.store.select(PlayersState.gamePlayers).subscribe(res => {
-      console.log(res);
       this.players = res;
     });
 
     combineLatest([this.store.select(PlayersState.currentPlayer), this.store.select(GameState.currentGame)])
       .pipe(
         filter(x => {
-          console.log(x);
           return !!x[0] && !!x[1];
         })
       )
       .subscribe(res => {
-        console.log(res);
         this.currentPlayer = res[0];
         this.game = res[1];
         if (this.currentPlayer && this.game) {
@@ -61,7 +57,7 @@ export class GameRoomComponent implements OnInit {
   }
 
   isPLayerAlreadyJoined(players: Player[], playerId: string) {
-    return players.some(p => p.id === playerId);
+    return players.some(p => p.id === playerId && p.gameId === this.gameId);
   }
 
   fileChangeEvent(e) {

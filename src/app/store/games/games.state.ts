@@ -1,7 +1,7 @@
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { GamesStateModel, CreateGame, GetGames, GetGame, UpdateGame } from './games.actions';
+import { GamesStateModel, CreateGame, GetGames, GetGame, UpdateGame, DeleteGame } from './games.actions';
 import { Game } from 'src/app/models/game';
 import { GamesService } from 'src/app/services/games.service';
 
@@ -45,6 +45,15 @@ export class GameState {
   @Action(UpdateGame)
   updateGame(ctx: StateContext<GamesStateModel>, action: UpdateGame) {
     return this.gamesService.updateGame(action.payload).pipe(
+      tap(game => {
+        console.log(game);
+      })
+    );
+  }
+
+  @Action(DeleteGame)
+  deleteGame(ctx: StateContext<GamesStateModel>, action: DeleteGame) {
+    return this.gamesService.deleteGame(action.payload).pipe(
       tap(game => {
         console.log(game);
       })

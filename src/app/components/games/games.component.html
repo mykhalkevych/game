@@ -7,10 +7,30 @@
       <mat-card-title>
         {{ game.name }}
       </mat-card-title>
+
       <mat-card-content>
         <div class="actions">
           <span>PLayers: {{ game.playersCount }} / {{ game.maxPlayers }}</span>
-          <button mat-raised-button color="accent" routerLink="{{ game.id }}">Join to play</button>
+
+          <div class="btns">
+            <button
+              *ngIf="game.gameOwnerId === currentPlayer?.id"
+              (click)="editGame(game)"
+              mat-icon-button
+              color="primary"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              *ngIf="game.gameOwnerId === currentPlayer?.id"
+              (click)="deleteGame(game.id)"
+              mat-icon-button
+              color="primary"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-raised-button color="accent" routerLink="{{ game.id }}">Join to play</button>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>

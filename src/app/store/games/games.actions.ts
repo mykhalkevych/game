@@ -19,6 +19,7 @@ export class UpdateGame {
 
 export class DeleteGame {
   static readonly type = '[Games] Delete';
+  constructor(public payload: string) {}
 }
 
 export class GetGame {
